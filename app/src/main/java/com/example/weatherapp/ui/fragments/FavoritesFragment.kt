@@ -42,9 +42,10 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        favoriteAdapter = FavoriteWeatherAdapter { favorite ->
-            viewModel.removeWeatherFromFavorites(favorite) // קריאה למחיקה
+        favoriteAdapter = FavoriteWeatherAdapter(viewModel) { favorite ->
+            viewModel.removeWeatherFromFavorites(favorite)
         }
+
         binding.rvFavorites.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = favoriteAdapter

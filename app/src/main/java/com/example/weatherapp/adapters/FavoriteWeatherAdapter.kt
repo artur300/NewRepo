@@ -5,21 +5,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.databinding.ItemFavoriteWeatherBinding
 import com.example.weatherapp.models.FavoriteWeather
+import com.example.weatherapp.ui.CitySearchViewModel
 
-class FavoriteWeatherAdapter(private val onDeleteClick: (FavoriteWeather) -> Unit) :
-    RecyclerView.Adapter<FavoriteWeatherAdapter.FavoriteViewHolder>() {
+class FavoriteWeatherAdapter(
+    private val viewModel: CitySearchViewModel,
+    private val onDeleteClick: (FavoriteWeather) -> Unit
+) : RecyclerView.Adapter<FavoriteWeatherAdapter.FavoriteViewHolder>() {
 
     private var favorites: List<FavoriteWeather> = emptyList()
 
     inner class FavoriteViewHolder(private val binding: ItemFavoriteWeatherBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         fun bind(favorite: FavoriteWeather) {
             binding.tvCityName.text = favorite.cityName
             binding.tvTemperature.text = "${favorite.temperature}°C"
             binding.tvDescription.text = favorite.description
 
-            // מאזין ללחיצה על כפתור המחיקה
+            // שינוי האייקון
+            val iconRes = viewModel.getWeatherIcon(favorite.iconCode)
+            binding.ivWeatherIcon.setImageResource(iconRes)
+
+            // מחיקת פריט בלחיצה
             binding.ivDeleteFavorite.setOnClickListener {
                 onDeleteClick(favorite)
             }
@@ -42,3 +48,5 @@ class FavoriteWeatherAdapter(private val onDeleteClick: (FavoriteWeather) -> Uni
         notifyDataSetChanged()
     }
 }
+
+
