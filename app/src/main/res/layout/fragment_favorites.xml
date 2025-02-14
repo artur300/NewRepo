@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <!-- כותרת דף המועדפים -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ass"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="8dp"/>
+    <Button
+        android:id="@+id/btnGoToSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back to Search"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"/>
+    
+    <!-- RecyclerView להצגת רשימת המועדפים -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFavorites"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
+
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="8dp">
+
+        <!-- שדה חיפוש עם השלמה אוטומטית -->
+        <AutoCompleteTextView
+            android:id="@+id/etCityName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_city_name"
+            android:inputType="text"
+            android:completionThreshold="2"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- כפתור חיפוש -->
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- כרטיסיית מזג אוויר -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="@color/dark_cyan">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:gravity="center">
+
+                <!-- שם העיר -->
+                <TextView
+                    android:id="@+id/tvCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/city_n_a"
+                    android:textColor="@color/bright_cyan"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+                <!-- שם המדינה -->
+                <TextView
+                    android:id="@+id/tvCountry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/country_n_a"
+                    android:textColor="@color/bright_cyan"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+                <!-- תיאור מזג האוויר -->
+                <TextView
+                    android:id="@+id/tvWeatherDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weather_description_n_a"
+                    android:textColor="@color/bright_cyan"
+                    android:textSize="18sp"
+                    android:textStyle="italic"
+                    android:gravity="center"/>
+
+                <!-- קו מפריד -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/bright_cyan"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <!-- תמונת מזג אוויר -->
+                <ImageView
+                    android:id="@+id/ivWeatherIcon"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_launcher_foreground"
+                    android:contentDescription="@string/weather_icon_desc"
+                    android:layout_gravity="center"/>
+
+
+                <!-- טמפרטורה ראשית -->
+                <TextView
+                    android:id="@+id/tvTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/temperature_n_a"
+                    android:textColor="@color/bright_cyan"
+                    android:textSize="50sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"/>
+
+                <!-- קו מפריד -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bright_cyan"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <!-- מרגיש כמו -->
+                <TextView
+                    android:id="@+id/tvFeelsLike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/feels_like_n_a"
+                    android:textColor="@color/bright_cyan"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"/>
+
+                <!-- קו מפריד -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bright_cyan"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <!-- זריחה ושקיעה -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/tvSunrise"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sunrise_n_a"
+                        android:textColor="@color/bright_cyan"
+                        android:textSize="16sp"
+                        android:layout_weight="1"
+                        android:gravity="start"/>
+
+                    <TextView
+                        android:id="@+id/tvSunset"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sunset_n_a"
+                        android:textColor="@color/bright_cyan"
+                        android:textSize="16sp"
+                        android:layout_weight="1"
+                        android:gravity="end"/>
+                </LinearLayout>
+
+                <!-- קו מפריד -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bright_cyan"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <!-- לחות ורוח -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/tvHumidity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/humidity_n_a"
+                        android:textColor="@color/bright_cyan"
+                        android:textSize="16sp"
+                        android:layout_weight="1"
+                        android:gravity="start"/>
+
+                    <TextView
+                        android:id="@+id/tvWindSpeed"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wind_speed_n_a"
+                        android:textColor="@color/bright_cyan"
+                        android:textSize="16sp"
+                        android:layout_weight="1"
+                        android:gravity="end"/>
+                </LinearLayout>
+
+                <!-- קו מפריד -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bright_cyan"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="20dp"/>
+
+                <!-- תמונת מזג אוויר -->
+                <ImageView
+                    android:id="@+id/ivHeartIcon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_heart"
+                    android:layout_gravity="center"/>
+
+
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ProgressBar מוצג כברירת מחדל מוסתר -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_marginTop="16dp"/>
+
+
+
+        <Button
+            android:id="@+id/btnGoToFavorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go to Favorites"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"/>
+    </LinearLayout>
+</ScrollView>
+
+
+

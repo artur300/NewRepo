@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Weather App</string>
+
+    <!-- Hints and Labels -->
+    <string name="label_city">%s</string>
+    <string name="label_country">%s</string>
+    <string name="label_temp">%s°C</string>
+    <string name="label_feels_like">Feels Like: %s°C</string>
+    <string name="label_humidity">Humidity: %s%%</string>
+    <string name="label_pressure">Pressure: %s hPa</string>
+    <string name="label_sunrise">Sunrise: %s</string>
+    <string name="label_sunset">Sunset: %s</string>
+    <string name="label_wind">Wind: %s m/s</string>
+    <string name="label_weather_description">%s</string>
+
+    <string name="enter_city_name">Enter City Name</string>
+    <string name="search">Search</string>
+    <string name="enter_country_code">Enter country</string>
+
+    <!-- Default values when data is not available -->
+    <string name="city_n_a">Tel Aviv</string>
+    <string name="country_n_a">Israel</string>
+    <string name="feels_like_n_a">Feels Like:20°C</string>
+    <string name="temperature_n_a">25°C</string>
+    <string name="humidity_n_a">Humidity: 60%</string>
+    <string name="pressure_n_a">Pressure: 1013 hPa</string>
+    <string name="sunrise_n_a">Sunrise: 06:30</string>
+    <string name="sunset_n_a">Sunset: 18:00</string>
+    <string name="wind_speed_n_a">Wind Speed: 12 km/h</string>
+    <string name="weather_description_n_a">Clear Sky</string>
+    <string name="weather_icon_desc">Weather icon representing current conditions</string>
+
+
+    <!-- Loading and Errors -->
+    <string name="loading">Loading...</string>
+    <string name="error_fetch_weather">Failed to retrieve weather data</string>
+    <string name="error_city_not_found">City not found</string>
+    <string name="error_fetch_coordinates">Failed to fetch city coordinates</string>
+    <string name="error_no_data">No data found</string>
+    <string name="please_enter_city_country">Please enter city and country</string>
+    <string name="added_to_favorites">Added to favorites!</string>
+
+</resources>

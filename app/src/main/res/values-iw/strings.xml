@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">אפליקציית מזג אוויר</string>
+
+    <!-- Hints and Labels -->
+    <string name="label_city">%s</string>
+    <string name="label_country">%s</string>
+    <string name="label_temp">%s°C</string>
+    <string name="label_feels_like">מרגיש כמו: %s°C</string>
+    <string name="label_humidity">לחות: %s%%</string>
+    <string name="label_pressure">לחץ: %s hPa</string>
+    <string name="label_sunrise">זריחה: %s</string>
+    <string name="label_sunset">שקיעה: %s</string>
+    <string name="label_wind">רוח: %s קמ"ש</string>
+    <string name="label_weather_description">%s</string>
+
+    <string name="enter_city_name">הזן שם עיר</string>
+    <string name="search">חפש</string>
+    <string name="enter_country_code">הזן מדינה</string>
+
+    <!-- Default values when data is not available -->
+    <string name="city_n_a">תל אביב</string>
+    <string name="country_n_a">ישראל</string>
+    <string name="feels_like_n_a">מרגיש כמו: 20°C</string>
+    <string name="temperature_n_a">25°C</string>
+    <string name="humidity_n_a">לחות: 60%</string>
+    <string name="pressure_n_a">לחץ: 1013 hPa</string>
+    <string name="sunrise_n_a">זריחה: 06:30</string>
+    <string name="sunset_n_a">שקיעה: 18:00</string>
+    <string name="wind_speed_n_a">רוח: 12 קמ"ש</string>
+    <string name="weather_description_n_a">שמיים בהירים</string>
+    <string name="weather_icon_desc">אייקון מזג אוויר המייצג את התנאים הנוכחיים</string>
+
+
+    <!-- Loading and Errors -->
+    <string name="loading">טוען...</string>
+    <string name="error_fetch_weather">נכשל באחזור נתוני מזג האוויר</string>
+    <string name="error_city_not_found">העיר לא נמצאה</string>
+    <string name="error_fetch_coordinates">נכשל באחזור נתוני המיקום</string>
+    <string name="error_no_data">לא נמצאו נתונים</string>
+    <string name="please_enter_city_country">אנא הזן עיר ומדינה</string>
+    <string name="added_to_favorites">נוסף למועדפים!</string>
+</resources>
