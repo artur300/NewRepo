@@ -37,6 +37,11 @@ class WeatherRepository @Inject constructor(
 
     // ------------------- ניהול מועדפים -------------------
 
+    suspend fun getFavoriteWeatherList(): List<FavoriteWeather> {
+        return db.getFavoriteDao().getAllFavoritesList() // פונקציה חדשה ב-DAO
+    }
+
+
     suspend fun insertFavoriteWeather(favoriteWeather: FavoriteWeather) {
         db.getFavoriteDao().insertFavorite(favoriteWeather)
     }

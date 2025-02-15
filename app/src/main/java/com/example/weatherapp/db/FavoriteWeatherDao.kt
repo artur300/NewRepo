@@ -13,6 +13,9 @@ interface FavoriteWeatherDao {
     @Query("SELECT * FROM favorite_weather")
     fun getAllFavorites(): LiveData<List<FavoriteWeather>>
 
+    @Query("SELECT * FROM favorite_weather")
+    suspend fun getAllFavoritesList(): List<FavoriteWeather>
+
     @Delete
     suspend fun deleteFavorite(favoriteWeather: FavoriteWeather)
 }

@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import com.example.weatherapp.models.CityResponse
 import javax.inject.Inject
 import android.util.Log
+import android.widget.Toast
 import com.example.weatherapp.models.FavoriteWeather
 
 @HiltViewModel
@@ -99,23 +100,36 @@ class CitySearchViewModel @Inject constructor(
 
     fun saveWeatherToFavorites(weather: WeatherResponse) {
         viewModelScope.launch {
-            val favoriteWeather = FavoriteWeather(
-                cityName = weather.name,
-                temperature = weather.main.temp,
-                description = weather.weather[0].description,
-                minTemp = weather.main.temp_min,
-                maxTemp = weather.main.temp_max,
-                feelsLike = weather.main.feels_like,
-                windSpeed = weather.wind.speed,
-                iconCode = weather.weather[0].icon,
+            val existingFavorites = repository.getFavoriteWeatherList() // מחזיר רשימה רגילה
+            val isAlreadySaved = existingFavorites.any { it.cityName == weather.name }
 
-                lat = weather.coord.lat,
-                lon = weather.coord.lon
+            if (isAlreadySaved) {
+                // אם העיר כבר קיימת, מציגים הודעה אחת בלבד ולא ממשיכים
+                Toast.makeText(app, app.getString(R.string.favorite_already_exists, weather.name), Toast.LENGTH_SHORT).show()
+            } else {
+                // אם העיר לא קיימת, מוסיפים אותה למועדפים ורק אז מציגים טוסט
+                val favoriteWeather = FavoriteWeather(
+                    cityName = weather.name,
+                    temperature = weather.main.temp,
+                    description = weather.weather[0].description,
+                    minTemp = weather.main.temp_min,
+                    maxTemp = weather.main.temp_max,
+                    feelsLike = weather.main.feels_like,
+                    windSpeed = weather.wind.speed,
+                    iconCode = weather.weather[0].icon,
+                    lat = weather.coord.lat,
+                    lon = weather.coord.lon
+                )
+                repository.insertFavoriteWeather(favoriteWeather)
 
-            )
-            repository.insertFavoriteWeather(favoriteWeather)
+                Toast.makeText(app, app.getString(R.string.favorite_added, weather.name), Toast.LENGTH_SHORT).show()
+            }
         }
     }
+
+
+
+
 
     fun removeWeatherFromFavorites(favorite: FavoriteWeather) {
         viewModelScope.launch {

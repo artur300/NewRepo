@@ -40,5 +40,9 @@
     <string name="error_no_data">No data found</string>
     <string name="please_enter_city_country">Please enter city and country</string>
     <string name="added_to_favorites">Added to favorites!</string>
+    <string name="favorite_already_exists">%1$s is already in favorites!</string>
+    <string name="favorite_added">%1$s has been added to favorites!</string>
+
+
 
 </resources>
