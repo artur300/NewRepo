@@ -10,31 +10,45 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ass"
+        android:text="רשימת מועדפים"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:paddingBottom="8dp"/>
+
+    <!-- כפתור רענון -->
+    <Button
+        android:id="@+id/btnRefreshFavorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="רענן נתונים"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- כפתור חזרה לחיפוש -->
     <Button
         android:id="@+id/btnGoToSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back to Search"
+        android:text="חזור לחיפוש"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"/>
-    
+        android:layout_marginBottom="8dp"/>
+
+    <!-- ProgressBar עבור טעינת נתונים -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
     <!-- RecyclerView להצגת רשימת המועדפים -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFavorites"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"/>
-
-
-
-
-
 
 </LinearLayout>

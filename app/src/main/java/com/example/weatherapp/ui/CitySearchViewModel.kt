@@ -23,6 +23,7 @@ class CitySearchViewModel @Inject constructor(
 
     val weatherData = MutableLiveData<Resource<WeatherResponse>>()
     val cityList = MutableLiveData<List<CityResponse>>()
+    val isRefreshing = MutableLiveData<Boolean>() // משתנה לעקוב אחרי מצב טעינת הרענון
 
     fun getWeatherByCity(city: String) {
         weatherData.value = Resource.Loading()
@@ -76,10 +77,9 @@ class CitySearchViewModel @Inject constructor(
         }
     }
 
-
-    fun getWeatherIcon(iconCode: String?) : Int{
-        val iconPrefix = iconCode?.substring(0,2)
-        return when(iconPrefix){
+    fun getWeatherIcon(iconCode: String?): Int {
+        val iconPrefix = iconCode?.substring(0, 2)
+        return when (iconPrefix) {
             "01" -> R.drawable.ic_sunny
             "02" -> R.drawable.ic_sunnycloudy
             "03" -> R.drawable.ic_cloudy
@@ -93,10 +93,10 @@ class CitySearchViewModel @Inject constructor(
         }
     }
 
+    //-------------- ניהול רשימת המועדפים -----------------------
 
-
-//--------------save to favorite-----------------------
     val favoriteWeatherList = repository.getFavoriteWeather()
+
     fun saveWeatherToFavorites(weather: WeatherResponse) {
         viewModelScope.launch {
             val favoriteWeather = FavoriteWeather(
@@ -107,12 +107,15 @@ class CitySearchViewModel @Inject constructor(
                 maxTemp = weather.main.temp_max,
                 feelsLike = weather.main.feels_like,
                 windSpeed = weather.wind.speed,
-                iconCode = weather.weather[0].icon
+                iconCode = weather.weather[0].icon,
+
+                lat = weather.coord.lat,
+                lon = weather.coord.lon
+
             )
             repository.insertFavoriteWeather(favoriteWeather)
         }
     }
-
 
     fun removeWeatherFromFavorites(favorite: FavoriteWeather) {
         viewModelScope.launch {
@@ -120,7 +123,42 @@ class CitySearchViewModel @Inject constructor(
         }
     }
 
-//------------------------------------------------------------
+    /**
+     * פונקציה שמעדכנת את רשימת המועדפים עם הנתונים העדכניים ביותר מה-API
+     */
+    fun refreshFavoriteWeather(callback: (Boolean) -> Unit) {
+        isRefreshing.postValue(true) // התחלת טעינה
 
+        viewModelScope.launch {
+            try {
+                val updatedFavorites = favoriteWeatherList.value?.map { favorite ->
+                    val response = repository.getWeatherData(favorite.lat, favorite.lon, "metric")
+
+                    if (response.isSuccessful) {
+                        response.body()?.let { weather ->
+                            favorite.copy(  // מעדכן את הפריט הקיים במקום ליצור חדש
+                                temperature = weather.main.temp,
+                                description = weather.weather[0].description,
+                                minTemp = weather.main.temp_min,
+                                maxTemp = weather.main.temp_max,
+                                feelsLike = weather.main.feels_like,
+                                windSpeed = weather.wind.speed,
+                                iconCode = weather.weather[0].icon
+                            )
+                        } ?: favorite
+                    } else {
+                        favorite // אם אין עדכון, שומר את הפריט הקיים
+                    }
+                } ?: emptyList()
+
+                repository.updateFavoriteWeather(updatedFavorites) // שמור רק את הנתונים המעודכנים
+                isRefreshing.postValue(false)
+                callback(true)
+            } catch (e: Exception) {
+                isRefreshing.postValue(false)
+                callback(false)
+            }
+        }
+    }
 
 }

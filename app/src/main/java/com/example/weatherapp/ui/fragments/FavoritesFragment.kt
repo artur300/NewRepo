@@ -39,13 +39,16 @@ class FavoritesFragment : Fragment() {
         binding.btnGoToSearch.setOnClickListener {
             findNavController().navigate(R.id.action_favoritesFragment_to_citySearchFragment)
         }
+
+        binding.btnRefreshFavorites.setOnClickListener {
+            refreshFavoriteWeather()
+        }
     }
 
     private fun setupRecyclerView() {
         favoriteAdapter = FavoriteWeatherAdapter(viewModel) { favorite ->
-            viewModel.removeWeatherFromFavorites(favorite)
+            viewModel.removeWeatherFromFavorites(favorite) // קריאה למחיקה
         }
-
         binding.rvFavorites.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = favoriteAdapter
@@ -54,7 +57,20 @@ class FavoritesFragment : Fragment() {
 
     private fun observeFavorites() {
         viewModel.favoriteWeatherList.observe(viewLifecycleOwner) { favorites ->
-            favoriteAdapter.submitList(favorites)
+            favoriteAdapter.submitList(favorites.distinctBy { it.cityName }) // מסנן כפילויות
+        }
+    }
+
+
+    private fun refreshFavoriteWeather() {
+        binding.progressBar.visibility = View.VISIBLE  // הצגת progressBar
+
+        viewModel.refreshFavoriteWeather { success ->
+            binding.progressBar.visibility = View.GONE // הסתרת progressBar לאחר העדכון
+
+            if (!success) {
+                // אפשר להוסיף הודעה למשתמש במידה והרענון נכשל
+            }
         }
     }
 }

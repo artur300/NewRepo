@@ -14,5 +14,8 @@ data class FavoriteWeather(
     val maxTemp: Double,
     val feelsLike: Double,
     val windSpeed: Double,
-    val iconCode: String
+    val iconCode: String,
+
+    val lat: Double,   // נוסיף Latitude
+    val lon: Double    // נוסיף Longitude
 )
