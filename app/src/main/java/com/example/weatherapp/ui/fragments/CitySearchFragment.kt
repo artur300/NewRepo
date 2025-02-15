@@ -47,9 +47,9 @@ class CitySearchFragment : Fragment() {
             val weather = viewModel.weatherData.value?.data
             if (weather != null) {
                 viewModel.saveWeatherToFavorites(weather)
-                Toast.makeText(requireContext(), getString(R.string.added_to_favorites), Toast.LENGTH_SHORT).show()
             }
         }
+
 
         binding.btnGoToFavorites.setOnClickListener {
             findNavController().navigate(R.id.action_citySearchFragment_to_favoritesFragment)

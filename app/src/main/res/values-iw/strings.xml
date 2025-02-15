@@ -39,7 +39,7 @@
     <string name="error_fetch_coordinates">נכשל באחזור נתוני המיקום</string>
     <string name="error_no_data">לא נמצאו נתונים</string>
     <string name="please_enter_city_country">אנא הזן עיר ומדינה</string>
-    <string name="added_to_favorites">נוסף למועדפים!</string>
     <string name="favorite_already_exists">%1$s כבר קיימת במועדפים!</string>
     <string name="favorite_added">%1$s נוספה למועדפים!</string>
+
 </resources>

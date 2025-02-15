@@ -100,14 +100,14 @@ class CitySearchViewModel @Inject constructor(
 
     fun saveWeatherToFavorites(weather: WeatherResponse) {
         viewModelScope.launch {
-            val existingFavorites = repository.getFavoriteWeatherList() // מחזיר רשימה רגילה
+            val existingFavorites = repository.getFavoriteWeatherList() // טעינת רשימת המועדפים המעודכנת ישירות מה-DAO
             val isAlreadySaved = existingFavorites.any { it.cityName == weather.name }
 
             if (isAlreadySaved) {
-                // אם העיר כבר קיימת, מציגים הודעה אחת בלבד ולא ממשיכים
+                // אם העיר כבר קיימת, מציגים הודעה בלבד
                 Toast.makeText(app, app.getString(R.string.favorite_already_exists, weather.name), Toast.LENGTH_SHORT).show()
             } else {
-                // אם העיר לא קיימת, מוסיפים אותה למועדפים ורק אז מציגים טוסט
+                // אם העיר לא קיימת - מוסיפים אותה למועדפים
                 val favoriteWeather = FavoriteWeather(
                     cityName = weather.name,
                     temperature = weather.main.temp,
@@ -122,12 +122,11 @@ class CitySearchViewModel @Inject constructor(
                 )
                 repository.insertFavoriteWeather(favoriteWeather)
 
+                // מציגים הודעה שהעיר נוספה למועדפים
                 Toast.makeText(app, app.getString(R.string.favorite_added, weather.name), Toast.LENGTH_SHORT).show()
             }
         }
     }
-
-
 
 
 
