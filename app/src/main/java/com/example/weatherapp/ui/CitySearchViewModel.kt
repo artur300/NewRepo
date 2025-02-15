@@ -26,8 +26,11 @@ class CitySearchViewModel @Inject constructor(
     val cityList = MutableLiveData<List<CityResponse>>()
     val isRefreshing = MutableLiveData<Boolean>() // משתנה לעקוב אחרי מצב טעינת הרענון
 
+    private var selectedCityName: String? = null // משתנה לשם העיר שנבחרה
+
     fun getWeatherByCity(city: String) {
         weatherData.value = Resource.Loading()
+        selectedCityName = city // שומר את שם העיר שנבחרה
 
         viewModelScope.launch {
             try {
@@ -68,10 +71,12 @@ class CitySearchViewModel @Inject constructor(
         }
     }
 
+    // עדכון שם העיר בתוצאה בהתאם למה שהמשתמש חיפש
     private fun handleWeatherResponse(response: retrofit2.Response<WeatherResponse>) {
         if (response.isSuccessful) {
-            response.body()?.let {
-                weatherData.postValue(Resource.Success(it))
+            response.body()?.let { weather ->
+                val updatedWeather = weather.copy(name = selectedCityName ?: weather.name) // מוודא שהתוצאה תואמת למה שנבחר
+                weatherData.postValue(Resource.Success(updatedWeather))
             } ?: weatherData.postValue(Resource.Error(app.getString(R.string.error_no_data)))
         } else {
             weatherData.postValue(Resource.Error(app.getString(R.string.error_fetch_weather)))
