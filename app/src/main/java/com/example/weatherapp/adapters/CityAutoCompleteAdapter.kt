@@ -19,6 +19,10 @@ class CityAutoCompleteAdapter(context: Context, private var cityList: List<CityR
         return "${city.name}, $countryName"
     }
 
+    fun getFullCityItem(position: Int): CityResponse {
+        return filteredCities[position] // מחזיר את האובייקט השלם
+    }
+
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
@@ -46,8 +50,6 @@ class CityAutoCompleteAdapter(context: Context, private var cityList: List<CityR
         filteredCities = uniqueCities
         notifyDataSetChanged()
     }
-
 }
-
 
 

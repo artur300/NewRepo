@@ -26,23 +26,23 @@ class CitySearchViewModel @Inject constructor(
     val cityList = MutableLiveData<List<CityResponse>>()
     val isRefreshing = MutableLiveData<Boolean>() // משתנה לעקוב אחרי מצב טעינת הרענון
 
-    private var selectedCityName: String? = null // משתנה לשם העיר שנבחרה
+    val selectedCityName = MutableLiveData<String?>()
+    val selectedCountryCode = MutableLiveData<String?>()
 
-    fun getWeatherByCity(city: String) {
+    fun getWeatherByCity(city: String, country: String) {
         weatherData.value = Resource.Loading()
-        selectedCityName = city // שומר את שם העיר שנבחרה
+        selectedCityName.value = city
+        selectedCountryCode.value = country
 
         viewModelScope.launch {
             try {
-                val response = repository.getCoordinates(city)
+                val response = repository.getCoordinates(city, country)
                 if (response.isSuccessful) {
                     val firstCity = response.body()?.firstOrNull()
-
                     firstCity?.let {
                         val weatherResponse = repository.getWeatherData(it.lat, it.lon, "metric")
                         handleWeatherResponse(weatherResponse)
                     } ?: weatherData.postValue(Resource.Error(app.getString(R.string.error_city_not_found)))
-
                 } else {
                     weatherData.postValue(Resource.Error(app.getString(R.string.error_fetch_coordinates)))
                 }
@@ -75,7 +75,7 @@ class CitySearchViewModel @Inject constructor(
     private fun handleWeatherResponse(response: retrofit2.Response<WeatherResponse>) {
         if (response.isSuccessful) {
             response.body()?.let { weather ->
-                val updatedWeather = weather.copy(name = selectedCityName ?: weather.name) // מוודא שהתוצאה תואמת למה שנבחר
+                val updatedWeather = weather.copy(name = selectedCityName.value ?: weather.name)
                 weatherData.postValue(Resource.Success(updatedWeather))
             } ?: weatherData.postValue(Resource.Error(app.getString(R.string.error_no_data)))
         } else {
@@ -129,9 +129,6 @@ class CitySearchViewModel @Inject constructor(
         }
     }
 
-
-
-
     fun removeWeatherFromFavorites(favorite: FavoriteWeather) {
         viewModelScope.launch {
             repository.deleteFavoriteWeather(favorite)
@@ -151,7 +148,7 @@ class CitySearchViewModel @Inject constructor(
 
                     if (response.isSuccessful) {
                         response.body()?.let { weather ->
-                            favorite.copy(  // מעדכן את הפריט הקיים במקום ליצור חדש
+                            favorite.copy(
                                 temperature = weather.main.temp,
                                 description = weather.weather[0].description,
                                 minTemp = weather.main.temp_min,
@@ -162,11 +159,11 @@ class CitySearchViewModel @Inject constructor(
                             )
                         } ?: favorite
                     } else {
-                        favorite // אם אין עדכון, שומר את הפריט הקיים
+                        favorite
                     }
                 } ?: emptyList()
 
-                repository.updateFavoriteWeather(updatedFavorites) // שמור רק את הנתונים המעודכנים
+                repository.updateFavoriteWeather(updatedFavorites)
                 isRefreshing.postValue(false)
                 callback(true)
             } catch (e: Exception) {
@@ -175,5 +172,5 @@ class CitySearchViewModel @Inject constructor(
             }
         }
     }
-
 }
+
