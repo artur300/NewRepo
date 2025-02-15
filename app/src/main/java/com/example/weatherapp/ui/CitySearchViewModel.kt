@@ -106,13 +106,18 @@ class CitySearchViewModel @Inject constructor(
     fun saveWeatherToFavorites(weather: WeatherResponse) {
         viewModelScope.launch {
             val existingFavorites = repository.getFavoriteWeatherList()
-            val isAlreadySaved = existingFavorites.any { it.cityName == weather.name }
+
+            // בודק אם העיר והמדינה כבר קיימים ברשימת המועדפים
+            val isAlreadySaved = existingFavorites.any {
+                it.cityName == weather.name && it.country == weather.sys.country
+            }
 
             if (isAlreadySaved) {
                 Toast.makeText(app, app.getString(R.string.favorite_already_exists, weather.name), Toast.LENGTH_SHORT).show()
             } else {
                 val favoriteWeather = FavoriteWeather(
                     cityName = weather.name,
+                    country = weather.sys.country, // שמירת המדינה
                     temperature = weather.main.temp,
                     description = weather.weather[0].description,
                     minTemp = weather.main.temp_min,
@@ -128,6 +133,7 @@ class CitySearchViewModel @Inject constructor(
             }
         }
     }
+
 
     fun removeWeatherFromFavorites(favorite: FavoriteWeather) {
         viewModelScope.launch {

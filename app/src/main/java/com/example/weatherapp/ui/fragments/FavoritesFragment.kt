@@ -57,7 +57,8 @@ class FavoritesFragment : Fragment() {
 
     private fun observeFavorites() {
         viewModel.favoriteWeatherList.observe(viewLifecycleOwner) { favorites ->
-            favoriteAdapter.submitList(favorites.distinctBy { it.cityName }) // מסנן כפילויות
+            favoriteAdapter.submitList(favorites.distinctBy { "${it.cityName}, ${it.country}" })
+            // מסנן כפילויות
         }
     }
 

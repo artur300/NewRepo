@@ -24,6 +24,17 @@
             android:textStyle="bold"
             android:textColor="@color/black"/>
 
+        <!-- שם העיר + המדינה -->
+        <TextView
+            android:id="@+id/tvCityAndCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="City Name, Country"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+
         <!-- טמפרטורה -->
         <TextView
             android:id="@+id/tvTemperature"

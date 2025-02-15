@@ -10,7 +10,7 @@ import com.example.weatherapp.models.WeatherResponse
 
 @Database(
     entities = [WeatherResponse::class, FavoriteWeather::class],
-    version = 2,
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

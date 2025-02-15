@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.databinding.ItemFavoriteWeatherBinding
 import com.example.weatherapp.models.FavoriteWeather
 import com.example.weatherapp.ui.CitySearchViewModel
+import java.util.Locale
 
 class FavoriteWeatherAdapter(
     private val viewModel: CitySearchViewModel,
@@ -17,7 +18,8 @@ class FavoriteWeatherAdapter(
     inner class FavoriteViewHolder(private val binding: ItemFavoriteWeatherBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(favorite: FavoriteWeather) {
-            binding.tvCityName.text = favorite.cityName
+            val countryName = Locale("", favorite.country).displayCountry
+            binding.tvCityAndCountry.text = "${favorite.cityName}, $countryName" // עכשיו מציג גם מדינה
             binding.tvTemperature.text = "${favorite.temperature}°C"
             binding.tvDescription.text = favorite.description
 
@@ -31,6 +33,8 @@ class FavoriteWeatherAdapter(
             }
         }
     }
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
         val binding = ItemFavoriteWeatherBinding.inflate(LayoutInflater.from(parent.context), parent, false)
