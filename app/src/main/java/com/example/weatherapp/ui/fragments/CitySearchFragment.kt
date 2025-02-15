@@ -71,9 +71,9 @@ class CitySearchFragment : Fragment() {
         // הסרת הקריאה ל-getWeatherByCity בבחירה מהרשימה כדי למנוע חיפוש מיותר
         binding.etCityName.setOnItemClickListener { _, _, position, _ ->
             val selectedCity = cityAdapter.getItem(position)
-            binding.etCityName.setText(selectedCity) // מציג את השם המדויק שנבחר
-            viewModel.getWeatherByCity(selectedCity.split(",")[0])  // מחפש את מזג האוויר לפי העיר שנבחרה
+            binding.etCityName.setText(selectedCity) // רק מכניס את הערך לשדה, לא מעדכן את הכרטיסייה
         }
+
 
 
         // חיפוש יתבצע רק בעת לחיצה על כפתור "חפש"
