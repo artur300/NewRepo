@@ -72,7 +72,7 @@ class CitySearchFragment : Fragment() {
         binding.etCityName.setOnItemClickListener { _, _, position, _ ->
             val selectedCity = cityAdapter.getItem(position)
             binding.etCityName.setText(selectedCity) // מציג את השם המדויק שנבחר
-            viewModel.getWeatherByCity(selectedCity) // מחפש את מזג האוויר לפי העיר שנבחרה
+            viewModel.getWeatherByCity(selectedCity.split(",")[0])  // מחפש את מזג האוויר לפי העיר שנבחרה
         }
 
 

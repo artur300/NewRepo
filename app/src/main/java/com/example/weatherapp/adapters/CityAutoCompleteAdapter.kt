@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.ArrayAdapter
 import android.widget.Filter
 import com.example.weatherapp.models.CityResponse
+import java.util.Locale
 
 class CityAutoCompleteAdapter(context: Context, private var cityList: List<CityResponse>) :
     ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line) {
@@ -11,7 +12,12 @@ class CityAutoCompleteAdapter(context: Context, private var cityList: List<CityR
     private var filteredCities: List<CityResponse> = cityList
 
     override fun getCount(): Int = filteredCities.size
-    override fun getItem(position: Int): String = filteredCities[position].name
+
+    override fun getItem(position: Int): String {
+        val city = filteredCities[position]
+        val countryName = Locale("", city.country).displayCountry // ממיר קוד מדינה לשם מלא
+        return "${city.name}, $countryName"
+    }
 
     override fun getFilter(): Filter {
         return object : Filter() {
@@ -33,10 +39,15 @@ class CityAutoCompleteAdapter(context: Context, private var cityList: List<CityR
     }
 
     fun updateCities(newCities: List<CityResponse>) {
-        cityList = newCities
-        filteredCities = newCities
+        // מסנן רשומות כפולות לפי שילוב של שם עיר ומדינה
+        val uniqueCities = newCities.distinctBy { "${it.name},${it.country}" }
+
+        cityList = uniqueCities
+        filteredCities = uniqueCities
         notifyDataSetChanged()
     }
+
 }
+
 
 
